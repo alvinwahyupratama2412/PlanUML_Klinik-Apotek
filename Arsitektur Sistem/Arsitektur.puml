@@ -1,0 +1,87 @@
+@startuml
+title Arsitektur Sistem dari Use Case Diagram
+
+package "MODUL AUTHENTICATION" {
+  [Login]
+  [Logout]
+  [Ganti Password]
+}
+
+package "MODUL PASIEN" {
+  [Pendaftaran Pasien Baru]
+  [Cari Data Pasien]
+  [Lihat Riwayat Pasien]
+  [Edit Data Pasien]
+  [Check Patient Record]
+}
+
+package "MODUL ANTRIAN" {
+  [Lihat Antrian]
+  [Panggil Pasien]
+  [Tampilkan Nomor Aktif]
+  [Selesai Periksa]
+  [Cetak Tiket Antrian]
+}
+
+package "MODUL APPOINTMENT" {
+  [Buat Appointment]
+  [Lihat Appointment]
+  [Edit Appointment]
+  [Hapus Appointment]
+}
+
+package "MODUL REKAM MEDIS" {
+  [Buat Rekam Medis]
+  [Lihat Rekam Medis]
+  [Edit Rekam Medis]
+  [Search Rekam Medis]
+}
+
+package "MODUL MANAJEMEN" {
+  package "User Management" {
+    [Tambah User]
+    [Edit User]
+    [Hapus User]
+    [Reset Password]
+  }
+  package "Dokter Management" {
+    [Tambah Data Dokter]
+    [Edit Data Dokter]
+    [Hapus Data Dokter]
+    [Lihat Jadwal Dokter]
+  }
+  package "Obat Management" {
+    [Tambah Obat]
+    [Edit Obat]
+    [Cek Stok Obat]
+    [Buat Resep]
+  }
+}
+
+package "MODUL SISTEM" {
+  [Konfigurasi Sistem]
+  [Backup Database]
+  [Lihat Log Sistem]
+}
+
+' ==================== AKTOR ====================
+actor "Administrator" as Admin
+actor "Dokter" as Doctor
+actor "Resepsionis" as Receptionist
+
+' ==================== AKSES ====================
+Admin --> MODUL_AUTHENTICATION
+Admin --> MODUL_PASIEN
+Admin --> MODUL_MANAJEMEN
+Admin --> MODUL_SISTEM
+
+Doctor --> MODUL_AUTHENTICATION
+Doctor --> MODUL_ANTRIAN
+Doctor --> MODUL_REKAM_MEDIS
+Doctor --> MODUL_APPOINTMENT
+
+Receptionist --> MODUL_AUTHENTICATION
+Receptionist --> MODUL_PASIEN
+Receptionist --> MODUL_ANTRIAN
+Receptionist --> MODUL_APPOINTMENT
+@enduml
