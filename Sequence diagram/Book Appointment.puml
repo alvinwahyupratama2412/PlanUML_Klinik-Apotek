@@ -1,0 +1,16 @@
+@startuml
+title Book Appointment
+actor Pasien
+participant Sistem
+participant Database
+
+Pasien -> Sistem : Pilih dokter dan jadwal
+Sistem -> Database : Cek ketersediaan jadwal
+Database --> Sistem : Status jadwal
+
+alt Jadwal tersedia
+    Sistem --> Pasien : Konfirmasi booking berhasil
+else Jadwal penuh
+    Sistem --> Pasien : Tampilkan jadwal tidak tersedia
+end
+@enduml

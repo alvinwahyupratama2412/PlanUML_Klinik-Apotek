@@ -1,0 +1,11 @@
+@startuml
+title Check Patient Record
+participant "Modul Pemanggil" as Caller
+participant Sistem
+participant Database
+
+Caller -> Sistem : Permintaan cek rekam medis
+Sistem -> Database : Query rekam medis pasien
+Database --> Sistem : Data rekam medis
+Sistem --> Caller : Kembalikan data rekam medis
+@enduml

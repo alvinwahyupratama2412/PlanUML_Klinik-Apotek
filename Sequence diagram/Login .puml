@@ -1,0 +1,19 @@
+@startuml
+title Login
+actor Pengguna
+participant Sistem
+participant Database
+
+Pengguna -> Sistem : Input username dan password
+Sistem -> Database : Verifikasi kredensial
+Database --> Sistem : Hasil verifikasi
+
+alt Kredensial valid
+    ref over Sistem, Database
+        Check Patient Record
+    end ref
+    Sistem --> Pengguna : Tampilkan dashboard
+else Kredensial salah
+    Sistem --> Pengguna : Login ditolak
+end
+@enduml

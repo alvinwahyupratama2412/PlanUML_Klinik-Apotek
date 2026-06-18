@@ -1,0 +1,16 @@
+@startuml
+title Manage Patient Records
+actor Resepsionis
+participant Sistem
+participant Database
+
+Resepsionis -> Sistem : Tambah dan ubah rekam medis
+Sistem -> Database : Simpan perubahan data
+Database --> Sistem : Status penyimpanan
+
+alt Berhasil
+    Sistem --> Resepsionis : Konfirmasi perubahan
+else Gagal
+    Sistem --> Resepsionis : Gagal menyimpan data
+end
+@enduml

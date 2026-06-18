@@ -1,0 +1,16 @@
+@startuml
+title Manage Account
+actor Pasien
+participant Sistem
+participant Database
+
+Pasien -> Sistem : Ubah profil dan password
+Sistem -> Database : Update data akun
+Database --> Sistem : Status update
+
+alt Berhasil
+    Sistem --> Pasien : Konfirmasi perubahan
+else Gagal
+    Sistem --> Pasien : Gagal memperbarui akun
+end
+@enduml 

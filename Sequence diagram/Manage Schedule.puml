@@ -1,0 +1,16 @@
+@startuml
+title Manage Schedule
+actor "Dokter / Admin" as Aktor
+participant Sistem
+participant Database
+
+Aktor -> Sistem : Atur dan ubah jadwal praktik
+Sistem -> Database : Simpan jadwal baru
+Database --> Sistem : Status penyimpanan
+
+alt Berhasil
+    Sistem --> Aktor : Konfirmasi perubahan
+else Gagal
+    Sistem --> Aktor : Gagal menyimpan jadwal
+end
+@enduml

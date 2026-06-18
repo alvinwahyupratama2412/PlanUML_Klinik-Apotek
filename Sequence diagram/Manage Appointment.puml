@@ -1,0 +1,16 @@
+@startuml
+title Manage Appointment
+actor Resepsionis
+participant Sistem
+participant Database
+
+Resepsionis -> Sistem : Ubah atau batalkan appointment
+Sistem -> Database : Update data appointment
+Database --> Sistem : Status update
+
+alt Berhasil
+    Sistem --> Resepsionis : Konfirmasi perubahan
+else Gagal
+    Sistem --> Resepsionis : Gagal memproses
+end
+@enduml

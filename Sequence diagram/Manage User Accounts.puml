@@ -1,0 +1,16 @@
+@startuml
+title Manage User Accounts
+actor Administrator
+participant Sistem
+participant Database
+
+Administrator -> Sistem : Tambah, ubah, hapus akun
+Sistem -> Database : Update data pengguna
+Database --> Sistem : Status update
+
+alt Berhasil
+    Sistem --> Administrator : Konfirmasi perubahan
+else Gagal
+    Sistem --> Administrator : Gagal memproses akun
+end
+@enduml
