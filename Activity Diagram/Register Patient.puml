@@ -1,0 +1,69 @@
+@startuml
+title Activity Diagram - Register Patient
+
+|Patient|
+start
+:Open Registration Page;
+
+|Frontend|
+:Display Registration Form;
+
+|Patient|
+:Enter Personal Data;
+note right
+- Full Name
+- Email
+- Phone Number
+- Password
+end note
+
+:Click Register Button;
+
+|Frontend|
+:Validate Input Format;
+
+if (Input Valid?) then (Yes)
+
+    |Backend|
+    :Receive Registration Data;
+    :Check Email Availability;
+
+    if (Email Already Exists?) then (Yes)
+
+        |Frontend|
+        :Display Error Message;
+        :Email Already Registered;
+
+        |Patient|
+        :Correct Registration Data;
+
+        |Frontend|
+        :Validate Input Format;
+
+    else (No)
+
+        |Backend|
+        :Create Patient Account;
+        :Store Data in Database;
+
+        |Frontend|
+        :Display Registration Success;
+
+        |Patient|
+        :Registration Completed;
+
+        stop
+
+    endif
+
+else (No)
+
+    |Frontend|
+    :Display Validation Error;
+
+    |Patient|
+    :Correct Input Data;
+
+endif
+
+@enduml
