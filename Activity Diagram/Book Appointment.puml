@@ -1,0 +1,60 @@
+@startuml
+title Activity Diagram - Book Appointment
+
+|Patient|
+start
+:Open Appointment Menu;
+
+|Frontend|
+:Display Appointment Form;
+
+|Patient|
+:Select Doctor;
+:Select Date;
+:Select Time;
+:Click Book Appointment;
+
+|Frontend|
+:Validate Input Data;
+
+if (Input Complete?) then (Yes)
+
+    |Backend|
+    :Receive Appointment Request;
+    :Check Doctor Availability;
+
+    if (Schedule Available?) then (Yes)
+
+        :Create Appointment;
+        :Store Appointment Data;
+
+        |Frontend|
+        :Display Booking Success;
+        :Show Appointment Details;
+
+        |Patient|
+        :View Appointment Confirmation;
+
+        stop
+
+    else (No)
+
+        |Frontend|
+        :Display Schedule Not Available;
+
+        |Patient|
+        :Select Another Schedule;
+
+    endif
+
+else (No)
+
+    |Frontend|
+    :Display Validation Error;
+
+    |Patient|
+    :Complete Required Fields;
+
+endif
+
+@enduml

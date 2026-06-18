@@ -1,0 +1,56 @@
+@startuml
+title Activity Diagram - Login Doctor
+
+|Doctor|
+start
+:Open Login Page;
+
+|Frontend|
+:Display Login Form;
+
+|Doctor|
+:Enter Username and Password;
+:Click Login Button;
+
+|Frontend|
+:Validate Input Fields;
+
+if (Input Complete?) then (Yes)
+
+    |Backend|
+    :Verify Account Credentials;
+
+    if (Credentials Valid?) then (Yes)
+
+        :Create Session;
+        :Load Doctor Dashboard;
+
+        |Frontend|
+        :Display Doctor Dashboard;
+
+        |Doctor|
+        :Access System Features;
+
+        stop
+
+    else (No)
+
+        |Frontend|
+        :Display Login Failed Message;
+
+        |Doctor|
+        :Re-enter Credentials;
+
+    endif
+
+else (No)
+
+    |Frontend|
+    :Display Validation Error;
+
+    |Doctor|
+    :Complete Required Fields;
+
+endif
+
+@enduml

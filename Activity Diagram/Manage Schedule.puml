@@ -1,0 +1,77 @@
+@startuml
+title Activity Diagram - Manage Schedule
+
+|Administrator|
+start
+:Open Schedule Management Menu;
+
+|Frontend|
+:Display Schedule List;
+
+|Administrator|
+:Select Action;
+
+if (Action?) then (Add Schedule)
+
+    :Input Schedule Data;
+
+    |Frontend|
+    :Validate Schedule Data;
+
+    |Backend|
+    :Check Schedule Conflict;
+
+    if (Conflict Found?) then (Yes)
+
+        |Frontend|
+        :Display Conflict Message;
+
+    else (No)
+
+        |Backend|
+        :Save Schedule;
+
+        |Frontend|
+        :Display Success Message;
+
+    endif
+
+elseif (Update Schedule)
+
+    :Select Schedule;
+
+    |Frontend|
+    :Display Edit Schedule Form;
+
+    |Administrator|
+    :Edit Schedule Data;
+
+    |Frontend|
+    :Validate Updated Data;
+
+    |Backend|
+    :Update Schedule;
+
+    |Frontend|
+    :Display Update Success Message;
+
+else (Delete Schedule)
+
+    :Select Schedule;
+
+    |Frontend|
+    :Display Delete Confirmation;
+
+    |Administrator|
+    :Confirm Deletion;
+
+    |Backend|
+    :Delete Schedule;
+
+    |Frontend|
+    :Display Deletion Success Message;
+
+endif
+
+stop
+@enduml

@@ -1,0 +1,70 @@
+@startuml
+title Activity Diagram - Manage Appointment
+
+|Receptionist|
+start
+:Open Appointment Management Menu;
+
+|Frontend|
+:Display Appointment List;
+
+|Receptionist|
+:Select Appointment Action;
+
+if (Add Appointment?) then (Yes)
+
+    :Input Appointment Data;
+
+    |Frontend|
+    :Validate Appointment Data;
+
+    |Backend|
+    :Check Schedule Availability;
+
+    if (Schedule Available?) then (Yes)
+
+        :Save Appointment Data;
+
+        |Frontend|
+        :Display Success Message;
+
+    else (No)
+
+        |Frontend|
+        :Display Schedule Conflict Message;
+
+    endif
+
+elseif (Update Appointment?) then (Yes)
+
+    :Edit Appointment Data;
+
+    |Frontend|
+    :Validate Updated Data;
+
+    |Backend|
+    :Update Appointment Data;
+
+    |Frontend|
+    :Display Update Success Message;
+
+else (Cancel Appointment)
+
+    :Select Appointment;
+
+    |Frontend|
+    :Display Cancellation Confirmation;
+
+    |Receptionist|
+    :Confirm Cancellation;
+
+    |Backend|
+    :Delete Appointment Data;
+
+    |Frontend|
+    :Display Cancellation Success Message;
+
+endif
+
+stop
+@enduml

@@ -1,0 +1,66 @@
+@startuml
+title Activity Diagram - Manage User Accounts
+
+|Administrator|
+start
+:Open User Management Menu;
+
+|Frontend|
+:Display User List;
+
+|Administrator|
+:Select Action;
+
+if (Action?) then (Add User)
+
+    :Input User Data;
+
+    |Frontend|
+    :Validate User Data;
+
+    |Backend|
+    :Create User Account;
+    :Store User Data;
+
+    |Frontend|
+    :Display Success Message;
+
+elseif (Update User)
+
+    :Select User;
+
+    |Frontend|
+    :Display Edit User Form;
+
+    |Administrator|
+    :Edit User Information;
+
+    |Frontend|
+    :Validate Updated Data;
+
+    |Backend|
+    :Update User Data;
+
+    |Frontend|
+    :Display Update Success Message;
+
+else (Delete User)
+
+    :Select User;
+
+    |Frontend|
+    :Display Delete Confirmation;
+
+    |Administrator|
+    :Confirm Deletion;
+
+    |Backend|
+    :Delete User Account;
+
+    |Frontend|
+    :Display Deletion Success Message;
+
+endif
+
+stop
+@enduml

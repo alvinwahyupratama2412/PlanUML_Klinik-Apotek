@@ -1,0 +1,52 @@
+@startuml
+title Activity Diagram - Check Patient Record (Doctor)
+
+|Doctor|
+start
+:Open Patient Records Menu;
+
+|Frontend|
+:Display Patient Records Page;
+
+|Backend|
+:Retrieve Patient List;
+
+if (Patient Data Available?) then (Yes)
+
+    |Frontend|
+    :Display Patient List;
+
+    |Doctor|
+    :Select Patient;
+
+    |Frontend|
+    :Request Patient Medical Record;
+
+    |Backend|
+    :Retrieve Medical Record Data;
+    :Retrieve Medical History;
+    :Retrieve Previous Treatments;
+
+    |Frontend|
+    :Display Medical Record Details;
+
+    |Doctor|
+    :Review Medical Record;
+    :Review Medical History;
+    :Review Treatment Information;
+
+    stop
+
+else (No)
+
+    |Frontend|
+    :Display No Patient Record Message;
+
+    |Doctor|
+    :View Notification;
+
+    stop
+
+endif
+
+@enduml

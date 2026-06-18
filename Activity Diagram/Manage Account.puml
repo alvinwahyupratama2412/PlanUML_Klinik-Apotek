@@ -1,0 +1,71 @@
+@startuml
+title Activity Diagram - Manage Account
+
+|Patient|
+start
+:Open Account Menu;
+
+|Frontend|
+:Display Profile Information;
+
+|Patient|
+:Select Edit Profile;
+
+|Frontend|
+:Display Edit Profile Form;
+
+|Patient|
+:Update Account Information;
+note right
+- Name
+- Email
+- Phone Number
+- Password
+end note
+
+:Click Save Changes;
+
+|Frontend|
+:Validate Input Data;
+
+if (Input Valid?) then (Yes)
+
+    |Backend|
+    :Receive Updated Data;
+    :Validate Email Uniqueness;
+
+    if (Email Available?) then (Yes)
+
+        :Update Account Data;
+        :Save Changes to Database;
+
+        |Frontend|
+        :Display Update Success Message;
+        :Refresh Profile Information;
+
+        |Patient|
+        :View Updated Profile;
+
+        stop
+
+    else (No)
+
+        |Frontend|
+        :Display Email Already Used Message;
+
+        |Patient|
+        :Correct Account Information;
+
+    endif
+
+else (No)
+
+    |Frontend|
+    :Display Validation Error;
+
+    |Patient|
+    :Correct Input Data;
+
+endif
+
+@enduml

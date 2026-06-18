@@ -1,0 +1,50 @@
+@startuml
+title Activity Diagram - View Appointment (Patient)
+
+|Patient|
+start
+:Open Appointment Menu;
+
+|Frontend|
+:Display Appointment Page;
+
+|Backend|
+:Retrieve Patient Appointments;
+
+if (Appointment Exists?) then (Yes)
+
+    :Fetch Appointment Data;
+
+    |Frontend|
+    :Display Appointment List;
+
+    |Patient|
+    :Select Appointment;
+
+    |Frontend|
+    :Request Appointment Details;
+
+    |Backend|
+    :Retrieve Appointment Details;
+
+    |Frontend|
+    :Display Appointment Details;
+
+    |Patient|
+    :View Appointment Information;
+
+    stop
+
+else (No)
+
+    |Frontend|
+    :Display No Appointment Message;
+
+    |Patient|
+    :View Notification;
+
+    stop
+
+endif
+
+@enduml

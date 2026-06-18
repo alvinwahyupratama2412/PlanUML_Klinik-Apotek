@@ -1,0 +1,59 @@
+@startuml
+title Activity Diagram - Manage Patient Records
+
+|Receptionist|
+start
+:Open Patient Records Menu;
+
+|Frontend|
+:Display Patient Records List;
+
+|Receptionist|
+:Select Record Action;
+
+if (Add Record?) then (Yes)
+
+    :Input Patient Information;
+
+    |Frontend|
+    :Validate Data;
+
+    |Backend|
+    :Save Patient Record;
+
+    |Frontend|
+    :Display Success Message;
+
+elseif (Update Record?) then (Yes)
+
+    :Edit Patient Information;
+
+    |Frontend|
+    :Validate Updated Data;
+
+    |Backend|
+    :Update Patient Record;
+
+    |Frontend|
+    :Display Update Success Message;
+
+else (Delete Record)
+
+    :Select Patient Record;
+
+    |Frontend|
+    :Display Delete Confirmation;
+
+    |Receptionist|
+    :Confirm Deletion;
+
+    |Backend|
+    :Delete Patient Record;
+
+    |Frontend|
+    :Display Deletion Success Message;
+
+endif
+
+stop
+@enduml

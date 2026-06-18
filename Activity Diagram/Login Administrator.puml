@@ -1,0 +1,56 @@
+@startuml
+title Activity Diagram - Login Administrator
+
+|Administrator|
+start
+:Open Login Page;
+
+|Frontend|
+:Display Login Form;
+
+|Administrator|
+:Enter Username and Password;
+:Click Login Button;
+
+|Frontend|
+:Validate Input Fields;
+
+if (Input Complete?) then (Yes)
+
+    |Backend|
+    :Verify Credentials;
+
+    if (Credentials Valid?) then (Yes)
+
+        :Create Admin Session;
+        :Load Admin Dashboard;
+
+        |Frontend|
+        :Display Admin Dashboard;
+
+        |Administrator|
+        :Access Administration Features;
+
+        stop
+
+    else (No)
+
+        |Frontend|
+        :Display Login Failed Message;
+
+        |Administrator|
+        :Re-enter Credentials;
+
+    endif
+
+else (No)
+
+    |Frontend|
+    :Display Validation Error;
+
+    |Administrator|
+    :Complete Required Fields;
+
+endif
+
+@enduml

@@ -1,0 +1,50 @@
+@startuml
+title Activity Diagram - Check Patient Record (Patient)
+
+|Patient|
+start
+:Open Medical Record Menu;
+
+|Frontend|
+:Display Medical Record Page;
+
+|Backend|
+:Retrieve Patient Medical Records;
+
+if (Record Exists?) then (Yes)
+
+    :Fetch Medical Record Data;
+
+    |Frontend|
+    :Display Medical Record List;
+
+    |Patient|
+    :Select Medical Record;
+
+    |Frontend|
+    :Request Record Details;
+
+    |Backend|
+    :Retrieve Record Details;
+
+    |Frontend|
+    :Display Medical Record Details;
+
+    |Patient|
+    :View Medical Record Information;
+
+    stop
+
+else (No)
+
+    |Frontend|
+    :Display No Medical Record Message;
+
+    |Patient|
+    :View Notification;
+
+    stop
+
+endif
+
+@enduml

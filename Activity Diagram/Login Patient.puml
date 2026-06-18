@@ -1,0 +1,70 @@
+@startuml
+title Activity Diagram - Login Patient
+
+|Patient|
+start
+:Open Login Page;
+
+|Frontend|
+:Display Login Form;
+
+|Patient|
+:Enter Email and Password;
+:Click Login Button;
+
+|Frontend|
+:Validate Required Fields;
+
+if (Fields Complete?) then (Yes)
+
+    |Backend|
+    :Receive Login Request;
+    :Check Account in Database;
+
+    if (Account Found?) then (Yes)
+
+        :Verify Password;
+
+        if (Password Correct?) then (Yes)
+
+            :Create User Session;
+
+            |Frontend|
+            :Display Dashboard;
+
+            |Patient|
+            :Access System Features;
+
+            stop
+
+        else (No)
+
+            |Frontend|
+            :Display Invalid Password Message;
+
+            |Patient|
+            :Re-enter Password;
+
+        endif
+
+    else (No)
+
+        |Frontend|
+        :Display Account Not Found Message;
+
+        |Patient|
+        :Re-enter Login Data;
+
+    endif
+
+else (No)
+
+    |Frontend|
+    :Display Validation Error;
+
+    |Patient|
+    :Complete Required Fields;
+
+endif
+
+@enduml

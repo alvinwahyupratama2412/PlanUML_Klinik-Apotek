@@ -1,0 +1,41 @@
+@startuml
+title Activity Diagram - Configure System
+
+|Administrator|
+start
+:Open System Configuration Menu;
+
+|Frontend|
+:Display System Settings;
+
+|Administrator|
+:Modify Configuration Settings;
+
+|Frontend|
+:Validate Configuration Data;
+
+if (Configuration Valid?) then (Yes)
+
+    |Backend|
+    :Process Configuration Changes;
+    :Save Configuration to Database;
+
+    |Frontend|
+    :Display Configuration Updated Message;
+
+    |Administrator|
+    :Review Updated Settings;
+
+    stop
+
+else (No)
+
+    |Frontend|
+    :Display Validation Error;
+
+    |Administrator|
+    :Correct Configuration Data;
+
+endif
+
+@enduml
