@@ -1,0 +1,169 @@
+@startuml
+title ERD Diagram - Sistem KlinikCare
+
+' ==================== TABEL USER / LOGIN ====================
+
+entity "user" as user {
+  * id_user : INT <<PK>>
+  --
+  username : VARCHAR(50)
+  password : VARCHAR(255)
+  role : VARCHAR(30)
+  nama_user : VARCHAR(100)
+  email : VARCHAR(50)
+  no_hp : VARCHAR(15)
+}
+
+' ==================== TABEL ADMIN ====================
+
+entity "admin" as admin {
+  * id_admin : INT <<PK>>
+  --
+  id_user : INT <<FK>>
+  nama_admin : VARCHAR(100)
+  no_hp : VARCHAR(15)
+  email : VARCHAR(50)
+}
+
+' ==================== TABEL RESEPSIONIS ====================
+
+entity "receptionist" as receptionist {
+  * id_receptionist : INT <<PK>>
+  --
+  id_user : INT <<FK>>
+  nama_receptionist : VARCHAR(100)
+  no_hp : VARCHAR(15)
+  email : VARCHAR(50)
+}
+
+' ==================== TABEL PASIEN ====================
+
+entity "pasien" as pasien {
+  * id_pasien : INT <<PK>>
+  --
+  nama_lengkap : VARCHAR(100)
+  nik : VARCHAR(16)
+  telepon : VARCHAR(15)
+  alamat : TEXT
+  tgl_terdaftar : DATE
+  id_user : INT <<FK>>
+}
+
+' ==================== TABEL DOKTER ====================
+
+entity "dokter" as dokter {
+  * id_dokter : INT <<PK>>
+  --
+  nama_dokter : VARCHAR(100)
+  spesialis : VARCHAR(50)
+  id_user : INT <<FK>>
+}
+
+' ==================== TABEL OBAT ====================
+
+entity "obat" as obat {
+  * id_obat : INT <<PK>>
+  --
+  nama_obat : VARCHAR(100)
+  stok : INT
+  satuan : VARCHAR(20)
+  harga_per_satuan : DECIMAL(10,2)
+  min_stok : INT
+}
+
+' ==================== TABEL JADWAL DOKTER ====================
+
+entity "jadwal_dokter" as jadwal_dokter {
+  * id_jadwal : INT <<PK>>
+  --
+  hari : VARCHAR(20)
+  jam_mulai : TIME
+  jam_selesai : TIME
+  kuota : INT
+  id_dokter : INT <<FK>>
+}
+
+' ==================== TABEL PENDAFTARAN ====================
+
+entity "pendaftaran" as pendaftaran {
+  * id_pendaftaran : INT <<PK>>
+  --
+  no_registrasi : VARCHAR(50)
+  tgl_kunjungan : DATE
+  keluhan : TEXT
+  status : VARCHAR(20)
+  id_pasien : INT <<FK>>
+  id_dokter : INT <<FK>>
+  id_admin : INT <<FK>>
+  id_receptionist : INT <<FK>>
+}
+
+' ==================== TABEL ANTRIAN ====================
+
+entity "antrian" as antrian {
+  * id_antrian : INT <<PK>>
+  --
+  no_antrian : VARCHAR(10)
+  status : VARCHAR(20)
+  waktu_daftar : TIME
+  id_pendaftaran : INT <<FK>>
+}
+
+' ==================== TABEL REKAM MEDIS ====================
+
+entity "rekam_medis" as rekam_medis {
+  * id_rekam_medis : INT <<PK>>
+  --
+  diagnosis : TEXT
+  catatan_tambahan : TEXT
+  tgl_kunjungan : DATE
+  id_pendaftaran : INT <<FK>>
+  id_dokter : INT <<FK>>
+  id_admin : INT <<FK>>
+}
+
+' ==================== TABEL RESEP ====================
+
+entity "resep" as resep {
+  * id_resep : INT <<PK>>
+  --
+  aturan_pakai : VARCHAR(100)
+  id_rekam_medis : INT <<FK>>
+  id_obat : INT <<FK>>
+}
+
+' ==================== RELASI USER KE SEMUA ROLE ====================
+
+user ||--|| admin : "memiliki akun"
+user ||--|| receptionist : "memiliki akun"
+user ||--|| pasien : "memiliki akun"
+user ||--|| dokter : "memiliki akun"
+
+' ==================== RELASI UTAMA ====================
+
+pasien ||--o{ pendaftaran : "melakukan booking"
+dokter ||--o{ pendaftaran : "ditangani"
+admin ||--o{ pendaftaran : "dikelola oleh admin"
+receptionist ||--o{ pendaftaran : "dikelola oleh receptionist"
+
+dokter ||--o{ jadwal_dokter : "mengatur jadwal"
+pendaftaran ||--|| antrian : "memiliki antrian"
+pendaftaran ||--|| rekam_medis : "menghasilkan"
+admin ||--o{ rekam_medis : "diisi oleh admin"
+rekam_medis ||--o{ resep : "berisi resep"
+obat ||--o{ resep : "diresepkan"
+
+' ==================== KETERANGAN PER ROLE ====================
+
+note bottom of user : "TABEL USER untuk login semua role"
+
+note right of admin : "TABEL ADMIN:\n- Mengatur jadwal dokter\n- Mengatur akun user\n- Mengkonfigurasi sistem\n- Cek rekam medis pasien"
+
+note right of receptionist : "TABEL RESEPSIONIS:\n- Mengatur pendaftaran pasien\n- Mengatur riwayat pasien\n- Cek rekam medis pasien"
+
+note right of dokter : "TABEL DOKTER:\n- Mengatur jadwal sendiri\n- Buat rekam medis\n- Buat resep"
+
+note right of pasien : "TABEL PASIEN:\n- Register (buat akun)\n- Booking antrian\n- Cek rekam medis sendiri\n- Lihat status antrian"
+
+note right of pendaftaran : "Status Pendaftaran:\n- Menunggu\n- Dilayani\n- Selesai"
+@enduml
