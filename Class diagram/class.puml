@@ -1,0 +1,81 @@
+@startuml
+skinparam classAttributeIconSize 0
+left to right direction
+
+class Pasien {
+    -id_pasien: int «PK»
+    -nama_lengkap: varchar
+    -tanggal_lahir: date
+    -jenis_kelamin: varchar
+    -nomor_telepon: varchar
+    -alamat: text
+    --
+    +tambahPasien()
+    +ubahPasien()
+}
+
+class Dokter {
+    -id_dokter: int «PK»
+    -nama_dokter: varchar
+    -spesialisasi: varchar
+    -nomor_telepon: varchar
+    --
+    +tambahDokter()
+    +lihatJadwal()
+}
+
+class PendaftaranAntrian {
+    -id_pendaftaran: int «PK»
+    -id_pasien: int «FK»
+    -id_dokter: int «FK»
+    -tanggal_daftar: date
+    -nomor_antrian: int
+    -keluhan_utama: text
+    -status_antrian: varchar {Menunggu, Dipanggil, Selesai}
+    --
+    +buatPendaftaran()
+    +updateStatusAntrian()
+    +panggilAntrian()
+}
+
+class RekamMedisRingkas {
+    -id_rekam_medis: int «PK»
+    -id_pendaftaran: int «FK»
+    -tanggal_periksa: date
+    -diagnosis: text
+    -catatan: text
+    --
+    +simpanRekamMedis()
+    +lihatRiwayatKunjungan()
+}
+
+class Obat {
+    -id_obats: int «PK»
+    -nama_obat: varchar
+    -jumlah_stok: int
+    -satuan: varchar
+    -harga_satuan: decimal
+    --
+    +tambahObat()
+    +updateStok()
+    +cekNotifikasiStok()
+}
+
+class DetailResepObat {
+    -id_detail_resep: int «PK»
+    -id_rekam_medis: int «FK»
+    -id_obat: int «FK»
+    -jumlah_diberikan: int
+    -aturan_pakai: varchar
+    --
+    +tambahDetailObat()
+}
+
+' Relasi antar Class sesuai Multiplisitas dan Navigasi di Gambar
+Pasien "1" -- "0..*" PendaftaranAntrian : melakukan >
+Dokter "1" -- "0..*" PendaftaranAntrian : melayani >
+PendaftaranAntrian "1" -- "1" RekamMedisRingkas : menghasilkan >
+RekamMedisRingkas "1" -- "1..*" DetailResepObat : berisi >
+Obat "1" -- "0..*" DetailResepObat : dicatat dalam >
+
+@enduml
